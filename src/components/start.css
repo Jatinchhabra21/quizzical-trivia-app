@@ -1,0 +1,13 @@
+.start__title {
+  font-family: 'Karla';
+  font-weight: 700;
+  font-size: 3rem;
+  color: #293264;
+  margin-bottom: 0.5rem;
+}
+
+.start__sub-title {
+  font-size: 1.2rem;
+  color: #293264;
+  margin-bottom: 2rem;
+}
