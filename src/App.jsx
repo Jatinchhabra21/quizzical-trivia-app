@@ -88,10 +88,6 @@ function App() {
     </>
   );
 
-  React.useEffect(() => {
-    console.log(renderedElements);
-  }, [isLoading]);
-
   return (
     <div
       className={`container ${
