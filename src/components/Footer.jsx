@@ -27,9 +27,7 @@ export default function Footer(props) {
   } else if (props.hasCompleted) {
     elements = (
       <>
-        <p className="score">
-          You scored {getScore(props.allQuestions)}/5 correct answers
-        </p>
+        <p className="score">Your score: {getScore(props.allQuestions)}/5</p>
         <button className="btn-regular" onClick={playAgain}>
           Play again
         </button>
