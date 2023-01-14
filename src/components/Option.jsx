@@ -1,21 +1,19 @@
 import React from 'react';
 
 export default function Option(props) {
-  let isCorrect = false;
   let isIncorrect = false;
   let isSelected = false;
 
   if (
     props.hasCompleted &&
     props.selectedAnswer === props.option &&
-    props.option === props.correctAnswer
+    props.option !== props.correctAnswer
   ) {
-    isCorrect = true;
-  } else if (props.hasCompleted && props.selectedAnswer === props.option) {
     isIncorrect = true;
   } else if (props.selectedAnswer && props.selectedAnswer === props.option) {
     isSelected = true;
   }
+
   return (
     <>
       <input
@@ -27,14 +25,20 @@ export default function Option(props) {
       />
       <label
         htmlFor={props.option}
-        className={`option ${
-          !props.hasCompleted && isSelected ? ' selected' : ''
-        } ${
+        className={`option 
+        ${
           props.hasCompleted && props.option === props.correctAnswer
             ? ' correct'
             : ''
-        } ${isIncorrect ? ' incorrect' : ''}
-        ${props.hasCompleted && isSelected ? ' not-selected' : ''}
+        }
+        ${!props.hasCompleted && isSelected ? ' selected' : ''} ${
+          isIncorrect ? ' incorrect' : ''
+        }
+        ${
+          props.hasCompleted && isIncorrect && !isSelected
+            ? ' not-selected'
+            : ''
+        }
         ${props.hasCompleted ? 'pointer-not-allowed' : ''}`}
         onClick={
           !props.hasCompleted

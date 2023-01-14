@@ -1,28 +1,11 @@
 import React from 'react';
+import { getScore, checkIfAllAnswered } from '../util';
 
 export default function Footer(props) {
   let elements = <div></div>;
 
-  function getScore() {
-    let score = 0;
-    props.allQuestions.map((questionDetails) => {
-      if (questionDetails.selectedAnswer === questionDetails.correctAnswer) {
-        score += 1;
-      }
-    });
-    return score;
-  }
-
-  function checkIfAllAnswered() {
-    let allAnswered = true;
-    props.allQuestions.map((questionDetails) => {
-      allAnswered = allAnswered && !!questionDetails.selectedAnswer;
-    });
-    return allAnswered;
-  }
-
   function checkAnswer() {
-    if (checkIfAllAnswered()) {
+    if (checkIfAllAnswered(props.allQuestions)) {
       props.setHasStarted(false);
       props.setHasCompleted(true);
     } else {
@@ -35,7 +18,7 @@ export default function Footer(props) {
     props.setHasCompleted(false);
   }
 
-  if (props.hasStarted) {
+  if (props.hasStarted && props.allQuestions.length) {
     elements = (
       <button className="btn-regular" onClick={checkAnswer}>
         Check Answers
@@ -44,7 +27,9 @@ export default function Footer(props) {
   } else if (props.hasCompleted) {
     elements = (
       <>
-        <p>You scored {getScore()}/5 correct answers</p>
+        <p className="score">
+          You scored {getScore(props.allQuestions)}/5 correct answers
+        </p>
         <button className="btn-regular" onClick={playAgain}>
           Play again
         </button>
