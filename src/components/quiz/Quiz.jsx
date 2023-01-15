@@ -29,8 +29,8 @@ export default function Quiz() {
     />
   ));
 
-  const renderQuestions = !!allQuestions.length && questions;
-  const renderFooter = !!allQuestions.length && (
+  const renderQuestions = questions;
+  const renderFooter = (
     <Footer
       hasCompleted={hasCompleted}
       setHasCompleted={setHasCompleted}
