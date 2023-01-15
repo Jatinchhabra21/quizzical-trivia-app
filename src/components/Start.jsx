@@ -1,16 +1,15 @@
 import React from 'react';
 import './start.css';
+import { Link } from 'react-router-dom';
 
-export default function Start(props) {
-  const startQuiz = () => props.setHasStarted(true);
-
+export default function Start() {
   return (
-    <div>
+    <div className="container">
       <h1 className="start__title">Quizzical</h1>
       <h5 className="start__sub-title">A Trivia App</h5>
-      <button className="btn-large" onClick={startQuiz}>
-        Start quiz
-      </button>
+      <Link to="/start">
+        <button className="btn-large">Start quiz</button>
+      </Link>
     </div>
   );
 }

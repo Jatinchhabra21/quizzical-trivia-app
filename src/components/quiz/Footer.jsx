@@ -1,12 +1,11 @@
 import React from 'react';
-import { getScore, checkIfAllAnswered } from '../util';
+import { getScore, checkIfAllAnswered } from '../../util';
 
 export default function Footer(props) {
   let elements = <div></div>;
 
   function checkAnswer() {
     if (checkIfAllAnswered(props.allQuestions)) {
-      props.setHasStarted(false);
       props.setHasCompleted(true);
     } else {
       alert('Please answer all questions first.');
@@ -14,11 +13,11 @@ export default function Footer(props) {
   }
 
   function playAgain() {
-    props.setHasStarted(true);
+    props.setPlayAgainCount((prevCount) => prevCount + 1);
     props.setHasCompleted(false);
   }
 
-  if (props.hasStarted && props.allQuestions.length) {
+  if (props.allQuestions.length && !props.hasCompleted) {
     elements = (
       <button className="btn-regular" onClick={checkAnswer}>
         Check Answers

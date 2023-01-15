@@ -1,63 +1,28 @@
 import './App.css';
 import Start from './components/Start';
-import Question from './components/Question';
-import Footer from './components/Footer';
-import React, { useEffect } from 'react';
-import Loader from './components/Loader';
-import { fetchQuestions } from './util';
+import React, { useState } from 'react';
+import Error from './components/Error';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import Quiz from './components/quiz/Quiz';
 
 function App() {
-  const [allQuestions, setAllQuestions] = React.useState([]);
-  const [hasStarted, setHasStarted] = React.useState(false);
-  const [hasCompleted, setHasCompleted] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  useEffect(() => {
-    if (hasStarted) {
-      setIsLoading(true);
-      async function fetchDataFromApi() {
-        let questions = await fetchQuestions();
-        setAllQuestions(questions);
-        setIsLoading(false);
-      }
-      fetchDataFromApi();
-    }
-  }, [hasStarted]);
-
-  const questions = allQuestions.map((questionDetails) => (
-    <Question
-      questionDetails={questionDetails}
-      key={questionDetails.id}
-      setAllQuestions={setAllQuestions}
-      hasCompleted={hasCompleted}
-    />
-  ));
-
   const renderedElements = (
-    <>
-      {!hasStarted && !hasCompleted && <Start setHasStarted={setHasStarted} />}
-      {(hasStarted || hasCompleted) && !!questions.length && questions}
-      {(hasStarted || hasCompleted) && !isLoading && (
-        <Footer
-          hasStarted={hasStarted}
-          hasCompleted={hasCompleted}
-          setHasCompleted={setHasCompleted}
-          setHasStarted={setHasStarted}
-          allQuestions={allQuestions}
-        />
-      )}
-    </>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Start />} />
+        <Route path="/start" element={<Quiz />} />
+        <Route path="/error" element={<Error />} />
+        <Route path="*" element={<Navigate to="/error" replace />} />
+      </Routes>
+    </Router>
   );
 
-  return (
-    <div
-      className={`container ${
-        (hasStarted || hasCompleted) && !isLoading ? ' gap-1 flex-start' : ''
-      }`}
-    >
-      {isLoading ? <Loader /> : renderedElements}
-    </div>
-  );
+  return renderedElements;
 }
 
 export default App;
