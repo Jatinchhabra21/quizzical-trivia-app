@@ -86,8 +86,16 @@ h1 {
   width: 0;
 }
 
+.display-none {
+  display: none;
+}
+
 .display-flex {
   display: flex;
+}
+
+.gap-1 {
+  gap: 1rem;
 }
 
 .align-center {
@@ -97,6 +105,15 @@ h1 {
 .pointer-not-allowed {
   cursor: not-allowed;
 }
+
+.size-1 {
+  width: 140px;
+}
+
+.size-2 {
+  width: 230px;
+}
+
 h1 {
   color: #293264;
   font-size: 4rem;

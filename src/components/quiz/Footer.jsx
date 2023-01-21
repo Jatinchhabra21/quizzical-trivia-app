@@ -1,5 +1,6 @@
 import React from 'react';
 import { getScore, checkIfAllAnswered } from '../../util';
+import { Link } from 'react-router-dom';
 
 export default function Footer(props) {
   let elements = <div></div>;
@@ -27,9 +28,11 @@ export default function Footer(props) {
     elements = (
       <>
         <p className="score">Your score: {getScore(props.allQuestions)}/5</p>
-        <button className="btn-regular" onClick={playAgain}>
-          Play again
-        </button>
+        <Link to="/preference">
+          <button className="btn-regular" onClick={playAgain}>
+            Play again
+          </button>
+        </Link>
       </>
     );
   }

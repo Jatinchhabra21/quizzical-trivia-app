@@ -7,8 +7,8 @@ export default function Start() {
     <div className="container">
       <h1 className="start__title">Quizzical</h1>
       <h5 className="start__sub-title">A Trivia App</h5>
-      <Link to="/quiz">
-        <button className="btn-large">Start quiz</button>
+      <Link to="/preference">
+        <button className="btn-large">Get Started</button>
       </Link>
     </div>
   );
