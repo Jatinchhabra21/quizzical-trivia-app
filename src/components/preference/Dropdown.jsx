@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import arrowDown from '/src/assets/arrow-down.svg';
 import './dropdown.css';
 
 export default function Dropdown(props) {
@@ -35,7 +36,7 @@ export default function Dropdown(props) {
       <div className={`select-box ${props.size}`}>
         <p className="selected-choice">{selectedValue}</p>
         <img
-          src="src\assets\arrow-down.svg"
+          src={arrowDown}
           className="dropdown-arrow"
           width={14}
           height={6}

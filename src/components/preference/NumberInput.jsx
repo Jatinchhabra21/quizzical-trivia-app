@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './number-input.css';
+import arrowUp from '/src/assets/arrow-up.svg';
+import arrowDown from '/src/assets/arrow-down.svg';
 
 export default function NumberInput() {
   const [number, setNumber] = useState(5);
@@ -30,14 +32,14 @@ export default function NumberInput() {
     <div className="input-container">
       <p className="number">{number}</p>
       <img
-        src="src\assets\arrow-down.svg"
+        src={arrowDown}
         className="arrow-down"
         id="decrease"
         width={14}
         height={6}
       />
       <img
-        src="src\assets\arrow-up.svg"
+        src={arrowUp}
         className="arrow-up"
         id="increase"
         width={14}
