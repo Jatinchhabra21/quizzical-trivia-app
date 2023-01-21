@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './question.css';
 import Option from './Option';
 
-export default function Question(props) {
+function Question(props) {
   function selectOption(event, option) {
     props.setAllQuestions((prevAllQuestions) => {
       let newAllQuestion = prevAllQuestions.filter(
@@ -35,3 +35,5 @@ export default function Question(props) {
     </div>
   );
 }
+
+export default memo(Question);

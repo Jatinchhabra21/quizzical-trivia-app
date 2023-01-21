@@ -15,7 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Start />} />
-        <Route path="/start" element={<Quiz />} />
+        <Route path="/quiz" element={<Quiz />} />
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
       </Routes>
