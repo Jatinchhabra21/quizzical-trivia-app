@@ -7,6 +7,10 @@ export default function NumberInput() {
   const [number, setNumber] = useState(5);
 
   useEffect(() => {
+    sessionStorage.setItem('number', JSON.stringify(number));
+  }, [number]);
+
+  useEffect(() => {
     const arrowUp = document.getElementById('increase');
     const arrowDown = document.getElementById('decrease');
     arrowUp.addEventListener('click', increment);

@@ -15,6 +15,15 @@ export default function Dropdown(props) {
     setShowDropdown(false);
   }
 
+  // to store user preference of difficulty/category in session storage which can be
+  // retrieved later in quiz route to get user preffered trivia questions
+  useEffect(() => {
+    sessionStorage.setItem(
+      props.placeholderText,
+      JSON.stringify(selectedValue)
+    );
+  }, [selectedValue]);
+
   useEffect(() => {
     const choiceContainer = document.getElementById(
       `choice-container-${props.placeholderText}`

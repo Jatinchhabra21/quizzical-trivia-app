@@ -1,3 +1,5 @@
+import { CATEGORIES } from './constants';
+
 export function getScore(allQuestions) {
   let score = 0;
   allQuestions.map((questionDetails) => {
@@ -34,11 +36,60 @@ export function decode(str) {
   return txt.value;
 }
 
-export async function fetchQuestions() {
-  const data = await fetch(
-    'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple'
+function getCategoryId(category) {
+  const categoryObj = Object.values(CATEGORIES).filter(
+    (item) => item.value === category
+  );
+  return categoryObj[0]?.id;
+}
+
+async function setToken() {
+  const token = await fetch(
+    'https://opentdb.com/api_token.php?command=request'
   ).then((res) => res.json());
+  sessionStorage.setItem('token', token.token);
+}
+
+export async function fetchQuestions() {
+  const preference = {
+    number: JSON.parse(sessionStorage.getItem('number')),
+    category: JSON.parse(sessionStorage.getItem('category')),
+    difficulty: JSON.parse(sessionStorage.getItem('difficulty')),
+  };
+
+  await setToken();
+
+  const url = `https://opentdb.com/api.php?amount=${
+    preference.number
+  }&difficulty=${
+    preference.difficulty !== 'difficulty' ? preference.difficulty : 'easy'
+  }${
+    preference.category !== 'category'
+      ? `&category=${getCategoryId(preference.category)}`
+      : ''
+  }&type=multiple&token=${sessionStorage.getItem('token')}`;
+
+  const data = await fetch(url).then((res) => res.json());
   const questions = [];
+
+  // handle errors thrown by API
+  // if (data.response_code === 1) {
+  //   navigate('/error', { error: 'Bad Request', message: 'No questions found' });
+  // } else if (data.response_code === 2) {
+  //   navigate('/error', { error: 'Bad Request', message: 'Invalid parameters' });
+  // } else if (data.response_code === 3) {
+  //   navigate('/error', {
+  //     error: 'Internal Server Error',
+  //     message: 'Invalid Token ',
+  //   });
+  // } else if (data.response_code === 4) {
+  //   navigate('/error', {
+  //     error: 'Wohoo!',
+  //     message: `You have answered all questions of ${preference.category} category`,
+  //   });
+  // }
+
+  // create allQuestions object
   data.results.map((questionObject, it) => {
     const options = [
       ...questionObject.incorrect_answers.map((incorrect_answer) =>
@@ -46,6 +97,7 @@ export async function fetchQuestions() {
       ),
       decode(questionObject.correct_answer),
     ];
+
     questions.push({
       id: it + 1,
       question: decode(questionObject.question),

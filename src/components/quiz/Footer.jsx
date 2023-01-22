@@ -27,7 +27,9 @@ export default function Footer(props) {
   } else if (props.hasCompleted) {
     elements = (
       <>
-        <p className="score">Your score: {getScore(props.allQuestions)}/5</p>
+        <p className="score">
+          Your score: {getScore(props.allQuestions)}/{props.allQuestions.length}
+        </p>
         <Link to="/preference">
           <button className="btn-regular" onClick={playAgain}>
             Play again
