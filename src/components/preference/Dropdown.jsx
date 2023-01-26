@@ -24,25 +24,30 @@ export default function Dropdown(props) {
     );
   }, [selectedValue]);
 
+  function closeDropdown(event) {
+    if (
+      !event.target.parentElement.classList.contains(
+        `dropdown-${props.placeholderText}`
+      )
+    ) {
+      setShowDropdown(false);
+    }
+  }
+
   useEffect(() => {
-    const choiceContainer = document.getElementById(
-      `choice-container-${props.placeholderText}`
-    );
-    choiceContainer.addEventListener('click', selectChoice);
-    const dropdownBtn = document.getElementById(
-      `dropdown-btn-${props.placeholderText}`
-    );
-    dropdownBtn.addEventListener('click', toggle);
+    document.addEventListener('click', closeDropdown);
 
     return () => {
-      dropdownBtn.removeEventListener('click', toggle);
-      choiceContainer.removeEventListener('click', selectChoice);
+      document.removeEventListener('click', closeDropdown);
     };
   }, []);
 
   return (
-    <div className="dropdown-container">
-      <div className={`select-box ${props.size}`}>
+    <div className={`dropdown-container dropdown-${props.placeholderText}`}>
+      <div
+        className={`select-box ${props.size} dropdown-${props.placeholderText}`}
+        onClick={toggle}
+      >
         <p className="selected-choice">{selectedValue}</p>
         <img
           src={arrowDown}
@@ -64,6 +69,7 @@ export default function Dropdown(props) {
             data-value={item.value}
             data-id={item.id}
             key={item.id}
+            onClick={selectChoice}
           >
             {item.value}
           </p>

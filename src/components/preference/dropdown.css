@@ -3,6 +3,7 @@
   box-sizing: border-box;
   max-height: 44px;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .select-box {
@@ -42,6 +43,18 @@
   max-height: 200px;
   overflow-y: auto;
   text-transform: capitalize;
+  scrollbar-width: 4px;
+  scrollbar-color: transparent #293264;
+}
+
+.choice-container::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+.choice-container::-webkit-scrollbar-thumb {
+  background-color: #293264ca;
+  border-radius: 6px;
 }
 
 .choice {
