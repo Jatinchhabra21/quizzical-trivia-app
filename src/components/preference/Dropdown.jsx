@@ -25,11 +25,7 @@ export default function Dropdown(props) {
   }, [selectedValue]);
 
   function closeDropdown(event) {
-    if (
-      !event.target.parentElement.classList.contains(
-        `dropdown-${props.placeholderText}`
-      )
-    ) {
+    if (!event.target.parentElement.classList.contains('dropdown')) {
       setShowDropdown(false);
     }
   }
@@ -43,11 +39,8 @@ export default function Dropdown(props) {
   }, []);
 
   return (
-    <div className={`dropdown-container dropdown-${props.placeholderText}`}>
-      <div
-        className={`select-box ${props.size} dropdown-${props.placeholderText}`}
-        onClick={toggle}
-      >
+    <div className={`dropdown-container dropdown`}>
+      <div className={`select-box ${props.size} dropdown`} onClick={toggle}>
         <p className="selected-choice">{selectedValue}</p>
         <img
           src={arrowDown}

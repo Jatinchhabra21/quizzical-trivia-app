@@ -32,19 +32,27 @@ export default function NumberInput() {
     setNumber((prevNumber) => (prevNumber === 5 ? prevNumber : prevNumber - 5));
   }
 
+  function isMin() {
+    return number === 5;
+  }
+
+  function isMax() {
+    return number === 20;
+  }
+
   return (
     <div className="input-container">
       <p className="number">{number}</p>
       <img
         src={arrowDown}
-        className="arrow-down"
+        className={`arrow-down ${isMin() ? 'disabled' : ''}`}
         id="decrease"
         width={14}
         height={6}
       />
       <img
         src={arrowUp}
-        className="arrow-up"
+        className={`arrow-up ${isMax() ? 'disabled' : ''}`}
         id="increase"
         width={14}
         height={6}
