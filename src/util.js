@@ -69,28 +69,15 @@ export async function fetchQuestions() {
       : ''
   }&type=multiple&token=${sessionStorage.getItem('token')}`;
 
-  const data = await fetch(url).then((res) => res.json());
+  const data = await fetch(url)
+    .then((res) => res.json())
+    .catch((error) => {
+      console.error(error);
+      return { response_code: 3 };
+    });
   const questions = [];
-
-  // handle errors thrown by API
-  // if (data.response_code === 1) {
-  //   navigate('/error', { error: 'Bad Request', message: 'No questions found' });
-  // } else if (data.response_code === 2) {
-  //   navigate('/error', { error: 'Bad Request', message: 'Invalid parameters' });
-  // } else if (data.response_code === 3) {
-  //   navigate('/error', {
-  //     error: 'Internal Server Error',
-  //     message: 'Invalid Token ',
-  //   });
-  // } else if (data.response_code === 4) {
-  //   navigate('/error', {
-  //     error: 'Wohoo!',
-  //     message: `You have answered all questions of ${preference.category} category`,
-  //   });
-  // }
-
   // create allQuestions object
-  data.results.map((questionObject, it) => {
+  data?.results?.map((questionObject, it) => {
     const options = [
       ...questionObject.incorrect_answers.map((incorrect_answer) =>
         decode(incorrect_answer)
@@ -107,5 +94,5 @@ export async function fetchQuestions() {
       isCorrect: false,
     });
   });
-  return questions;
+  return { responseCode: data.response_code, questions };
 }

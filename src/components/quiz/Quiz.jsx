@@ -3,6 +3,7 @@ import Question from './Question';
 import Footer from './Footer';
 import Loader from './Loader';
 import { fetchQuestions } from '../../util';
+import { useNavigate } from 'react-router-dom';
 
 export default function Quiz() {
   const [allQuestions, setAllQuestions] = useState([]);
@@ -10,12 +11,18 @@ export default function Quiz() {
   const [playAgainCount, setPlayAgainCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsLoading(true);
     async function fetchDataFromApi() {
-      let questions = await fetchQuestions();
+      let { responseCode, questions } = await fetchQuestions();
       setAllQuestions(questions);
       setIsLoading(false);
+      console.log(responseCode);
+      if (responseCode !== 0) {
+        navigate('/error');
+      }
     }
     fetchDataFromApi();
   }, [playAgainCount]);
